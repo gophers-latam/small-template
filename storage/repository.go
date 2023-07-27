@@ -3,27 +3,27 @@ package storage
 import (
 	"sync"
 
-	"github.com/gophers-latam/small-template/models"
+	"github.com/gophers-latam/small-template/domain"
 )
 
 type Repository interface {
-	Get(int) *models.Product
-	Save(*models.Product)
+	Get(int) *domain.Product
+	Save(*domain.Product)
 	Delete(int)
 }
 
 type MemoryRepository struct {
-	db     map[int]*models.Product
+	db     map[int]*domain.Product
 	nextId int
 	mutex  sync.Mutex
 }
 
 func NewMemoryRepository() *MemoryRepository {
-	db := make(map[int]*models.Product)
+	db := make(map[int]*domain.Product)
 	return &MemoryRepository{db: db, mutex: sync.Mutex{}}
 }
 
-func (repo *MemoryRepository) Save(product *models.Product) {
+func (repo *MemoryRepository) Save(product *domain.Product) {
 	repo.mutex.Lock()
 	defer repo.mutex.Unlock()
 
@@ -32,7 +32,7 @@ func (repo *MemoryRepository) Save(product *models.Product) {
 	repo.db[product.Id] = product
 }
 
-func (repo *MemoryRepository) Get(id int) *models.Product {
+func (repo *MemoryRepository) Get(id int) *domain.Product {
 	repo.mutex.Lock()
 	defer repo.mutex.Unlock()
 

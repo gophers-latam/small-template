@@ -1,8 +1,8 @@
 package services
 
 import (
+	"github.com/gophers-latam/small-template/domain"
 	"github.com/gophers-latam/small-template/internal"
-	"github.com/gophers-latam/small-template/models"
 	"github.com/gophers-latam/small-template/storage"
 )
 
@@ -15,11 +15,11 @@ func NewProductService(repo storage.Repository, logger internal.Logger) *Product
 	return &ProductService{repo, logger}
 }
 
-func (service *ProductService) Get(id int) *models.Product {
+func (service *ProductService) Get(id int) *domain.Product {
 	return service.repo.Get(id)
 }
 
-func (service *ProductService) Save(product *models.Product) {
+func (service *ProductService) Save(product *domain.Product) {
 	service.repo.Save(product)
 	service.logger.Info("product saved")
 }

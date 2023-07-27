@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/gophers-latam/small-template/domain"
 	"github.com/gophers-latam/small-template/internal"
-	"github.com/gophers-latam/small-template/models"
 	"github.com/gophers-latam/small-template/services"
 	"github.com/gophers-latam/small-template/storage"
 )
@@ -16,7 +16,7 @@ func main() {
 	logger := internal.NewLogger(os.Stdout, log.Ldate|log.Ltime)
 	repository := storage.NewMemoryRepository()
 	service := services.NewProductService(repository, logger)
-	product := &models.Product{
+	product := &domain.Product{
 		Name:  "Gophers LATAM t-shirt",
 		Price: 20,
 	}
